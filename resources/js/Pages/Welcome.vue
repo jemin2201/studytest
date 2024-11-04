@@ -30,7 +30,17 @@ function handleImageError() {
     <Head title="Welcome" />
     
 
-    <header></header>
+    <header>
+        <nav class="w-2/5 pl-40">
+            <template v-if="$page.props.auth.user">
+                <Link :href="route('dashboard')" class="rounded-md px-3 py-2">{{ user.name }}</Link>
+            </template>
+            <template v-else>
+                <Link :href="route('login')" class="rounded-md px-3 py-2">로그인</Link>
+                <Link :href="route('register')" class="rounded-md px-3 py-2">회원가입</Link>
+            </template>
+        </nav>
+    </header>
     <main>
         
     </main>

@@ -12,8 +12,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        
-        return inertia::render('Welcom');
+        $post = Post::all();
+        return response()->json($posts);
     }
 
     /**

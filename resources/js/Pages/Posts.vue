@@ -1,5 +1,18 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
+const posts = ref([]);
+
+onMounted(async () => {
+    try {
+        const post = await axios.get('/Posts');
+        posts.value = post.data;
+    } catch (error) {
+        console.error("데이터를 가져오는 중 오류가 발생했습니다.", error);
+    }
+});
 </script>
 
 <template>
@@ -14,7 +27,7 @@ import { Link } from '@inertiajs/vue3';
             <td class="td1">{{ post.id }}</td>
             <td class="td2">작성자</td>
             <td class="td3">{{ post.title }}</td>
-            <td class="td4">{{ formatDate(post.created_at) }}</td>
+            <td class="td4">{{ post.created_at }}</td>
         </tr>
     </div>
 </template>

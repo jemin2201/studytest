@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    use HasFactory;
     protected $table = 'post';
+    protected $primarykey = 'id';
     protected $fillable = [
-        "title",
-        "content",
+        'title',
+        'content'
     ];
+    use HasFactory;
 }

@@ -22,6 +22,12 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::resource('/Posts', PostController::class)->names([
+        'index' => 'Posts.index',
+        'show' => 'PostShow',
+        'create' => 'Postcreate',
+        'store' => 'Poststore',
+    ]);
 });
 
-Route::resource('/Posts', PostController::class);

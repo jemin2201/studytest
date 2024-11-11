@@ -13,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::all();
+        $post = Post::with('user')->get();
         return Inertia::render('Posts/Posts', [
             'posts' => $post
         ]);
@@ -36,7 +36,11 @@ class PostController extends Controller
             'title' => 'required|unique:post|max:255',
             'content' => 'required',
         ]);
-        Post::create($request->only(['title', 'content']));
+        Post::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            "user_id" => auth()->id(),
+        ]);
         return  redirect()->route('Posts.index')->with('message', "게시물을 저장하였습니다.");
     }
 

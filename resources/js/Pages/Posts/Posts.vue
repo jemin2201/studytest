@@ -7,6 +7,7 @@ const props = defineProps({
     posts: Array
 });
 
+
 </script>
 <template>
     <AppLayout title="Dashboard">
@@ -33,7 +34,7 @@ const props = defineProps({
                         </tr>
                         <tr v-for="(data, index) in posts" :key="data.id">
                             <td class="td1">{{ data.id }}</td>
-                            <td class="td2">작성자</td>
+                            <td class="td2">{{ data.user.name }}</td>
                             <td class="td3">
                                 <Link :href="route('PostShow', data.id)">{{ data.title }}</Link></td>
                             <td class="td4">{{ data.created_at }}</td>

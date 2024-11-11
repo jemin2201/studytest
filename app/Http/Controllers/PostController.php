@@ -32,14 +32,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        Post::table('posts')->insert([
-            'title' => $request->title,
-            'content' => $request->content,
+        $request->validate([
+            'title' => 'required|unique:post|max:255',
+            'content' => 'required',
         ]);
-        return back()->with('post_created', '글이 성공적으로 등록되었습니다.');
-        // $requestData = $request->all();
-        // Post::create($requestData);
-        // return redirect('posts')->with('flash_message', 'Post Addedd!');
+        Post::create($request->only(['title', 'content']));
+        return  redirect()->route('Posts.index')->with('message', "게시물을 저장하였습니다.");
     }
 
     /**
@@ -48,7 +46,7 @@ class PostController extends Controller
     public function show(Post $post)
     {
         return Inertia::render('Posts/PostsShow', [
-            'posts' => $post
+            'post' => $post
         ]);
     }
 

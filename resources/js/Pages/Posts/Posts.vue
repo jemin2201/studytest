@@ -35,7 +35,7 @@ const props = defineProps({
                             <td class="td1">{{ data.id }}</td>
                             <td class="td2">작성자</td>
                             <td class="td3">
-                                <Link :href="route('PostShow.show', data.id)">{{ data.title }}</Link></td>
+                                <Link :href="route('PostShow', data.id)">{{ data.title }}</Link></td>
                             <td class="td4">{{ data.created_at }}</td>
                         </tr>
                     </div>

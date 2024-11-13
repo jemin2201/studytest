@@ -1,5 +1,8 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
+import AppLayout from '@/Layouts/AppLayout.vue';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 defineProps({
     canLogin: {
@@ -27,84 +30,48 @@ function handleImageError() {
 </script>
 
 <template>
-    <Head title="Welcome" />
-        <div class="textbox">
-            <span>로그인을 해주세요.</span>
-        </div>
-        <div class="loginbox">
-            <Link
-                :href="route('login')" id="login"
-                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-            >
-                Log in
-            </Link>
 
-            <Link
-                    v-if="canRegister"
-                :href="route('register')" id="register"
-                class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-            >
-                Register
-            </Link>
-        </div>
-                            
+    <AppLayout>
+        <template #header>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                홈 화면
+            </h2>
+        </template>
+            <div class="main">
+                <!-- <div id="carouselExampleIndicators" class="carousel slide">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                    <img src="/images/slideimg1.jpg" class="d-block w-100" alt="slide1">
+                    </div>
+                    <div class="carousel-item">
+                    <img src="/images/slideimg2.jpg" class="d-block w-100" alt="slide2">
+                    </div>
+                    <div class="carousel-item">
+                    <img src="/images/slideimg3.jpg" class="d-block w-100" alt="slide3">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                </div> -->
+            </div>
+    </AppLayout>
+    
 </template>
  <style>
-.textbox{
-    width: 500px;
-    height: 100px;
-    margin: auto;
-}
-
-span{
-    display: block;
-    width: 500px;
-    height: 100px;
-    text-align: center;
-    line-height: 100px;
-    font-size: 20px;
-}
-
-.loginbox{
-    width: 500px;
-    height: 200px;
+.main{
+    width: 100%;
+    height: 500px;
     border: 1px solid #000;
-    border-radius: 25px;
-    margin: auto;
-    margin-top: 30px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-#login{
-    display: block;
-    width: 100px;
-    height: 40px;
-    border: 1px solid #000;
-    background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
-    border-radius: 50px;
-    text-align: center;
-    line-height: 25px;
-
-}
-
-#login:hover{
-    box-shadow: 3px 3px 3px gray;
-}
-
-#register{
-    display: block;
-    width: 100px;
-    height: 40px;
-    border: 1px solid #000;
-    background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
-    border-radius: 50px;
-    text-align: center;
-    line-height: 25px;
-}
-
-#register:hover{
-    box-shadow: 3px 3px 3px gray;
 }
 </style>

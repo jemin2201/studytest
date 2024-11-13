@@ -32,7 +32,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $request->validate([ // 유효성 검사
             'title' => 'required|unique:post|max:255',
             'content' => 'required',
         ]);
@@ -41,7 +41,7 @@ class PostController extends Controller
             'content' => $request->content,
             "user_id" => auth()->id(),
         ]);
-        return  redirect()->route('Posts.index')->with('message', "게시물을 저장하였습니다.");
+        return  redirect()->route('Posts.index');
     }
 
     /**

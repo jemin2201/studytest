@@ -16,7 +16,7 @@ const props = defineProps({
                 게시글
             </h2>
             <div class="Upload">
-                <Link :href="route('Postcreate')" class="Upbt">
+                <Link :href="route('Postcreate')" class="Upbt link">
                     글쓰기
                 </Link>
             </div>
@@ -32,12 +32,12 @@ const props = defineProps({
                             <td class="td3">제목</td>
                             <td class="td4">시간</td>
                         </tr>
-                        <tr v-for="(data, index) in posts" :key="data.id">
-                            <td class="td1">{{ data.id }}</td>
-                            <td class="td2">{{ data.user.name }}</td>
+                        <tr v-for="posts in posts" :key="posts.id">
+                            <td class="td1">{{ posts.id }}</td>
+                            <td class="td2">{{ posts.user.name }}</td>
                             <td class="td3">
-                                <Link :href="route('PostShow', data.id)">{{ data.title }}</Link></td>
-                            <td class="td4">{{ data.created_at }}</td>
+                                <Link :href="route('PostShow', posts.id)" class="link">{{ posts.title }}</Link></td>
+                            <td class="td4">{{ posts.created_at }}</td>
                         </tr>
                     </div>
                 </div>

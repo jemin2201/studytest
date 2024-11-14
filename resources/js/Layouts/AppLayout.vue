@@ -26,7 +26,12 @@ const logout = () => {
     router.post(route('logout'));
 };
 </script>
-
+<style>
+.link{
+    text-decoration: none;
+    color: black;
+}
+</style>
 <template>
     <div>
         <Head :title="title" />
@@ -41,24 +46,24 @@ const logout = () => {
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('dashboard')" class="link">
                                     logo
                                 </Link>
                             </div>
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink :href="route('home')" :active="route().current('home')">
+                                <NavLink :href="route('home')" :active="route().current('home')" class="link">
                                     홈
                                 </NavLink>
                             </div>
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')" class="link">
                                     중고매물
                                 </NavLink>
                             </div>
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink :href="route('Posts.index')" :active="route().current('Posts.index')">
+                                <NavLink :href="route('Posts.index')" :active="route().current('Posts.index')" class="link">
                                     게시글
                                 </NavLink>
                             </div>

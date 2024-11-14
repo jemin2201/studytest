@@ -3,7 +3,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import { defineProps } from 'vue';
 
 const props = defineProps({
-    posts: Array
+    post: Object
 });
 </script>
 
@@ -11,7 +11,7 @@ const props = defineProps({
     <AppLayout title="Dashboard">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                글쓰기
+                
             </h2>
         </template>
 
@@ -19,8 +19,13 @@ const props = defineProps({
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="box">
-                       <h1>{{ posts.title }}</h1>
-                       <p>{{ posts.content }}</p>
+                        <tr  v-for="post in post" :key="post.id">
+                            <td class="td1">{{ post.id }}</td>
+                            <td class="td2">{{ post.user?.name }}</td>
+                            <td class="td3">{{ post.title }}</td>
+                            <td>{{ post.content }}</td>
+                            <td class="td4">{{ post.created_at }}</td>
+                        </tr>
                     </div>
                 </div>
             </div>

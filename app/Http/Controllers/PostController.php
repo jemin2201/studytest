@@ -49,9 +49,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return Inertia::render('Posts/PostsShow', [
-            'post' => $post
-        ]);
+        $post = Post::with('user')->where('id', $post->id)->first();
+        return Inertia::render('Posts/PostShow', compact('post'));
     }
 
     /**

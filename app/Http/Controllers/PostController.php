@@ -13,10 +13,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::with('user')->get();
-        return Inertia::render('Posts/Posts', [
-            'posts' => $post
-        ]);
+        $posts = Post::with('user')->get();
+        return Inertia::render('Posts/Posts', compact('posts'));
     }
 
     /**
@@ -47,11 +45,12 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        $post = Post::with('user')->where('id', $post->id)->first();
+        $post = Post::findOrFail($id);
         return Inertia::render('Posts/PostShow', compact('post'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

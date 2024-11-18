@@ -16,11 +16,15 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
+
+    // resource 한번에 여리 리소스 컨트롤러를 등록할 수있다
     Route::resource('/Posts', PostController::class)->names([
         'index' => 'Posts.index',
         'show' => 'PostShow',
         'create' => 'Postcreate',
         'store' => 'Poststore',
+        'edit' => 'PostEdit',
+        'update' => 'Posts.update',
     ]);
 
     Route::get('/', function () {

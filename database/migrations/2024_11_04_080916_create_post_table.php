@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // 마이그레이션에서 테이블을 생성
         Schema::create('post', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');

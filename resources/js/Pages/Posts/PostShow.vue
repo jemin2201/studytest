@@ -3,8 +3,10 @@ import { Link } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { defineProps } from 'vue';
 
+// props는 데이터를 전달하기 위해 사용하는 속성
 const props = defineProps({
-    post: Object
+    post: Object, // Object 키와 값
+    user: Number, // Number 숫자
 });
 </script>
 
@@ -15,7 +17,7 @@ const props = defineProps({
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ post.title }}
             </h2>
-            <Link :href="route('PostEdit', post.id)" class="link edit">
+            <Link :href="route('PostEdit', post.id)" class="link edit" v-if="user == post.user_id">
                 수정
             </Link>
         </template>

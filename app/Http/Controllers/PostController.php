@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -51,8 +52,10 @@ class PostController extends Controller
     {
         // 데이터베이스에서 id를 찾고 존재하지 않으면 예외시킨다
         $post = Post::findOrFail($id);
+        // 로그인 한 사람의 id를 불러온다
+        $user = auth()->id();
         // PostShow로 데이터를 전달하고 페이지로 넘어간다
-        return Inertia::render('Posts/PostShow', compact('post'));// compact는 'post' => $post
+        return Inertia::render('Posts/PostShow', compact('post', 'user'));// compact는 'post' => $post
     }
 
 
@@ -84,14 +87,22 @@ class PostController extends Controller
             'content' => $request->content,
         ]);
         // 리다이렉트 메소드를 사용했고 작업을 완료하면 PostShow/id로 넘어간다
-        return Inertia::render(route('Posts/PostShow', compact('post')));
+        return  redirect()->route('PostShow', $id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        //
+        // 데이터베이스에서 id를 불러온다
+        $post = Post::findOrFail($id);
+
+        // 불러온 데이터를 삭제한다.
+        $post->delete();
+
+
+        // 리다이렉트 사용 작업을 완료하면 Posts.index로 넘어간다
+        return  redirect()->route('Posts.index');
     }
 }

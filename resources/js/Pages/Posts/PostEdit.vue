@@ -16,6 +16,10 @@ const form = useForm({
 const submitForm = () => {
     form.put(route('Posts.update', props.post.id));
 };
+
+const deleteForm = () => {
+    form.delete(route('Posts.destroy', props.post.id));
+};
 </script>
 
 <template>
@@ -25,7 +29,7 @@ const submitForm = () => {
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <!-- 글쓰는 기능 -->
                     <div class="box">
-                        <form action="" @submit.prevent="submitForm">
+                        <form action="" @submit.prevent="submitForm" @delete.prevent="deleteForm">
                             <label for="" class="label1">
                                 제목
                             </label><br>
@@ -35,6 +39,7 @@ const submitForm = () => {
                             <!-- 수정버튼 취소버튼 -->
                             <div class="btnbox">
                                 <input type="submit" value="수정" class="btn">
+                                <input type="button" value="삭제" class="btn1" @click="deleteForm">
                                 <Link :href="route('PostShow', props.post.id)" class="link btn2">
                                     취소
                                 </Link>
@@ -74,7 +79,7 @@ form{
 }
 
 .btnbox{
-    width: 300px;
+    width: 400px;
     height: 100px;
     display: flex;
     justify-content: space-around;
@@ -83,16 +88,36 @@ form{
 
 .btn{
     display: block;
-    width: 100px;
+    width: 90px;
     height: 40px;
     border: 1px solid #000; 
     margin-top: 20px;
     border-radius: 25px;
     box-shadow: 3px 3px 3px gray;
     text-shadow: 2px 2px 2px gray;
+    background-color: rgb(69, 69, 243);
 }
 
 .btn:hover {
+    box-shadow: 5px 5px 5px gray;
+    text-shadow: 4px 4px 4px gray;
+}
+
+.btn1{
+    display: block;
+    width: 80px;
+    height: 40px;
+    border: 1px solid #000; 
+    background-color: rgb(254, 68, 68);
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 25px;
+    box-shadow: 3px 3px 3px gray;
+    text-shadow: 2px 2px 2px gray;
+    line-height: 40px;
+}
+
+.btn1:hover {
     box-shadow: 5px 5px 5px gray;
     text-shadow: 4px 4px 4px gray;
 }
@@ -101,7 +126,7 @@ form{
     display: block;
     text-align: center;
     line-height: 40px;
-    width: 100px;
+    width: 90px;
     height: 40px;
     border: 1px solid #000; 
     margin-top: 20px;
@@ -111,7 +136,6 @@ form{
 }
 
 .btn2:hover {
-    border: 0px solid #000;
     box-shadow: 5px 5px 5px gray;
     text-shadow: 4px 4px 4px gray;
 }

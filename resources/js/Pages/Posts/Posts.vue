@@ -4,7 +4,7 @@ import AppLayout from '@/Layouts/AppLayout.vue';
 import { defineProps } from 'vue';
 
 const props = defineProps({
-    posts: Array
+    posts: Array // Array 배열 여러 개의 값을 하나의 변수에 저장할 수 있다
 });
 
 

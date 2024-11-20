@@ -68,4 +68,8 @@ class User extends Authenticatable
     public function posts(){ // 연관관계
         return $this->hasMany(Post::class); // hasMany는 1대N
     }
+
+    public function secondhands(){
+        return $this->hasMany(Secondhands::class);
+    }
 }

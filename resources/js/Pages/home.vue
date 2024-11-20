@@ -1,6 +1,5 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
-import AppLayout from '@/Layouts/AppLayout.vue';
+import { Head, Link } from '@inertiajs/vue3';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
@@ -30,12 +29,24 @@ function handleImageError() {
 </script>
 
 <template>
-    <AppLayout>
-        <template #header>
+<Head title="Welcome" />
+        
+    <div class="loginbox">
+        <Link :href="route('login')" class="link">
+            로그인
+        </Link>
+        <Link :href="route('register')" class="link">
+            회원가입
+        </Link>
+    </div>
+
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                홈 화면
+                환영합니다.
             </h2>
-        </template>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                이 페이지를 사용하고 싶다면 로그인을 해주세요!
+            </h2>
+        
 
         <!-- 이미지 슬라이드 -->
         <div id="carouselExampleIndicators" class="carousel slide">
@@ -64,10 +75,32 @@ function handleImageError() {
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-    </AppLayout>
+    
 </template>
  <style>
  img{
     height: 500px;
+ }
+
+.loginbox{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: end;
+}
+
+h2{
+    text-align: center;
+}
+
+ .link{
+    display: block;
+    width: 80px;
+    height: 50px;
+    line-height: 50px;
+    color: black;
+    text-decoration: none;
+    text-align: center;
+    margin-right: 10px;
  }
 </style>

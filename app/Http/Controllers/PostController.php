@@ -14,6 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
+        // 데이터베이스에서 데이터를 가져오고 user에 데이터도 함께 가져온다
         $posts = Post::with('user')->get();
         return Inertia::render('Posts/Posts', compact('posts'));
     }

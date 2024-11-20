@@ -4,8 +4,11 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SecondhandController;
 
-
+Route::get('/', function () {
+    return Inertia::render('home');
+})->name('Welcome');
 
 Route::middleware([
     'auth:sanctum',
@@ -13,7 +16,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return Inertia::render('secondhand/Dashboard');
+        return Inertia::render('Dashboard');
     })->name('dashboard');
 
 
@@ -26,14 +29,7 @@ Route::middleware([
         'edit' => 'PostEdit',
         'update' => 'Posts.update',
     ]);
-
-    Route::get('/', function () {
-        return Inertia::render('Welcome', [
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
-            'laravelVersion' => Application::VERSION,
-            'phpVersion' => PHP_VERSION,
-        ]);
-    })->name('home');
+    
+    Route::resource('/secondhand', SecondhandController::class);
 });
 

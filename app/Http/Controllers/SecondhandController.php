@@ -33,23 +33,28 @@ class SecondhandController extends Controller
     {
         $item = $request->all();
         
-        $request->validate([
+        $request->validate([ // 유효성 검사
             'title' => 'required|unique:post|max:255',
             'content' => 'required',
             'price' => 'required',
             'photo' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-         $file = $request->file('photo');
-        $fileContent = file_get_contents($file->getRealPath());
-        
-
+        $image = [];
+        // 원래 파일이름 앞에 시간을 합친다
+        $fileName = time().$request->file('photo')->getClientOriginalName();
+        // 파일을 images라는 폴더에 저장
+        $path = $request->file('photo')->storeAs('images', $fileName, 'public');
+        // 저장된 파일을 비어있는 image에 넣는다
+        $image[] = '/storage/'.$path;
+        // photo에 json형식으로 저장
+        $item['photo'] = json_encode($image);
 
         Secondhand::create([
             'title' => $request->title,
             'content' => $request->content,
             'price' => $request->price,
-            'photo' => $fileContent,
+            'photo' => $item['photo'],
             'user_id' => auth()->id(),
         ]);
 

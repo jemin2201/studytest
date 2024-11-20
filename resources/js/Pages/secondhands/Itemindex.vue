@@ -26,20 +26,23 @@ const props = defineProps({
         <!-- 매물 목록 -->
         <div class="itembox">
             <div class="card cardbox" style="width: 18rem;">
-            <img src="" class="card-img-top" alt="...">
+                <div class="imgbox">
+                    <img src="" class="card-img-top" alt="...">
+                </div>
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <h6>유저</h6>
                     <a href="#" class="btn btn-primary">보기</a>
                 </div>
             </div>
 
             <div class="card cardbox" style="width: 18rem;" v-for="item in item" :key="index">
-            <img src="" class="card-img-top" alt="...">
+                <div class="imgbox">
+                    <img :src="JSON.parse(item.photo)[0]" class="card-img-top" alt="...">
+                </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ item.title }}</h5>
                     <h6>{{ item.user.name }}</h6>
-                    <p class="card-text">{{ item.content }}</p>
                     <a href="#" class="btn btn-primary">보기</a>
                 </div>
             </div>
@@ -50,6 +53,12 @@ const props = defineProps({
 </template>
 
 <style>
+.imgbox{
+    margin: auto;
+    width: 250px;
+    height: 250px;
+}
+
 .cardbox{
     margin-top: 10px;
     margin-left: 10px;

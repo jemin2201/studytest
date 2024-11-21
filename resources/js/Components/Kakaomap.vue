@@ -43,9 +43,7 @@ export default {
       this.mapInstance.setLevel(cur);
     },
   },
-  method() {
-    
-  },
+  method() {},
   methods: {
       
     zoom(delta) {

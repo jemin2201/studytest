@@ -14,9 +14,9 @@ export default defineConfig({
         }),
         vue({
             template: {
-                transformAssetUrls: {
-                    base: null,
-                    includeAbsolute: false,
+                transformAssetUrls: { // 경로를 찾아서 자동으로 처리한다.
+                    base: null, //  경로를 바꾸지 마라
+                    includeAbsolute: false, // 절대 경로를 건드리지 마라
                 },
             },
         }),

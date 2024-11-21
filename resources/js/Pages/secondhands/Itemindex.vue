@@ -32,6 +32,7 @@ const props = defineProps({
                 <div class="card-body">
                     <h5 class="card-title">Card title</h5>
                     <h6>유저</h6>
+                    <h6>100원</h6>
                     <a href="#" class="btn btn-primary">보기</a>
                 </div>
             </div>
@@ -43,7 +44,8 @@ const props = defineProps({
                 <div class="card-body">
                     <h5 class="card-title">{{ item.title }}</h5>
                     <h6>{{ item.user.name }}</h6>
-                    <a href="#" class="btn btn-primary">보기</a>
+                    <h6>{{ item.price }}원</h6>
+                    <a :href="route('secondhand.show', item.id)" class="btn btn-primary">보기</a>
                 </div>
             </div>
         </div>

@@ -64,25 +64,36 @@ class SecondhandController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Secondhand $secondhand)
+    public function show($id)
     {
-        //
+        $item = Secondhand::findOrFail($id);
+        $user = auth()->id();
+
+        return Inertia::render('secondhands/Itemshow', compact('item','user'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Secondhand $secondhand)
+    public function edit($id)
     {
-        //
+        $item = Secondhand::findOrfail($id);
+
+        return Inertia::render('secondhands/ItemEdit', compact('item'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Secondhand $secondhand)
+    public function update(Request $request, $id)
     {
-        //
+        $item = Secondhand::findOrfail($id);
+        $request->validate([
+            'title' => 'required|unique:post|max255',
+            'content' => 'required',
+            'price' => 'required',
+            'photo' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
     }
 
     /**

@@ -17,9 +17,14 @@ const props = defineProps({
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ post.title }}
             </h2>
-            <Link :href="route('PostEdit', post.id)" class="link edit" v-if="user == post.user_id">
-                수정
-            </Link>
+            <div class="linkbox1"  v-if="user == post.user_id">
+                <Link :href="route('PostEdit', post.id)" class="link edit">
+                    수정
+                </Link>
+                <Link :href="route('Posts.destroy', post.id)" class="link edit">
+                    삭제
+                </Link>
+            </div>
         </template>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -34,24 +39,22 @@ const props = defineProps({
 </template>
 
 <style>
+.linkbox1{
+    width: 100%;
+    display: flex;
+    justify-content: end
+}
 p{
     text-align: center;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 .edit{
-    margin: auto;
+    margin-left: 20px;
     display: block;
-    width: 60px;
-    height: 30px;
-    border: 1px solid #000;
-    text-align: center;
-    line-height: 30px;
-    border-radius: 10px;
 }
 
 .edit:hover{
-    box-shadow: 3px 3px 3px gray;
     text-shadow: 2px 2px 2px gray;
 }
 </style>

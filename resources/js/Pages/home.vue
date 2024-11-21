@@ -1,5 +1,6 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
+import Kakaomap from '@/Components/Kakaomap.vue';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
@@ -26,6 +27,11 @@ function handleImageError() {
     document.getElementById('docs-card-content')?.classList.add('!flex-row');
     document.getElementById('background')?.classList.add('!hidden');
 }
+
+const mapOption = {
+  center: { lat: 33.450701, lng: 126.570667 },
+  level: 8,
+};
 </script>
 
 <template>
@@ -39,6 +45,8 @@ function handleImageError() {
             회원가입
         </Link>
     </div>
+    <!-- 카카오 맵 -->
+    <Kakaomap class="kmap" :options="mapOption" />
 
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 환영합니다.
@@ -75,8 +83,10 @@ function handleImageError() {
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-    
+
+        
 </template>
+
  <style>
  img{
     height: 500px;

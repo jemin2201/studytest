@@ -1,5 +1,5 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { defineProps } from 'vue';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,6 +9,10 @@ const props = defineProps({
     item: Object,
     user: Number,
 });
+
+const deleteitem = () => {
+    router.delete(route('secondhand.destroy', props.item.id));
+};
 </script>
 <template>
     <AppLayout title="Dashboard">
@@ -22,7 +26,7 @@ const props = defineProps({
                 </span>
                 <div class="linkbox" v-if="user == item.user_id">
                     <Link :href="route('secondhand.edit', item.id)" class="link link1">수정</Link>
-                    <Link :href="route('secondhand.destroy', item.id)" class="link link1">삭제</Link>
+                    <Link @click="deleteitem" class="link link1">삭제</Link>
                 </div>
             </div>
 

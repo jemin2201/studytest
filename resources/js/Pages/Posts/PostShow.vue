@@ -1,5 +1,5 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { defineProps } from 'vue';
 
@@ -8,6 +8,10 @@ const props = defineProps({
     post: Object, // Object 키와 값
     user: Number, // Number 숫자
 });
+
+const deletepost = () => {
+    router.delete(route('Posts.destroy', props.post.id));
+}
 </script>
 
 <template>
@@ -21,7 +25,7 @@ const props = defineProps({
                 <Link :href="route('PostEdit', post.id)" class="link edit">
                     수정
                 </Link>
-                <Link :href="route('Posts.destroy', post.id)" class="link edit">
+                <Link @click="deletepost" class="link edit">
                     삭제
                 </Link>
             </div>

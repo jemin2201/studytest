@@ -37,7 +37,7 @@ const props = defineProps({
                 </div>
             </div>
 
-            <div class="card cardbox" style="width: 18rem;" v-for="item in item" :key="index">
+            <div class="card cardbox" style="width: 18rem;" v-for="item in item" :key="item.id">
                 <div class="imgbox">
                     <img :src="JSON.parse(item.photo)[0]" class="card-img-top" alt="...">
                 </div>

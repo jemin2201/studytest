@@ -34,7 +34,7 @@ class SecondhandController extends Controller
         $item = $request->all();
         
         $request->validate([ // 유효성 검사
-            'title' => 'required|unique:post|max:255',
+            'title' => 'required|unique:secondhands|max:255',
             'content' => 'required',
             'price' => 'required',
             'photo' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048',
@@ -88,19 +88,70 @@ class SecondhandController extends Controller
     public function update(Request $request, $id)
     {
         $item = Secondhand::findOrfail($id);
-        $request->validate([
-            'title' => 'required|unique:post|max255',
+
+        $request->validate([ // 유효성 검사
+            'title' => 'required|max:255',
             'content' => 'required',
             'price' => 'required',
-            'photo' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        $fileName = $item->photo;
+        $filepath = public_path('images/' . $fileName);
+
+        if ($request->hasFile('photo')) {
+            // 기존 파일 경로 가져오기
+            $oldFilePath = public_path(json_decode($item->photo)[0]);
+            
+            // 기존 파일이 존재하면 삭제
+            if (file_exists($oldFilePath)) {
+                unlink($oldFilePath);
+            }
+        
+            // 새로운 파일 처리
+            $file = $request->file('photo');
+            $file_ext = $file->getClientOriginalExtension();
+            $fileName = rand(123456, 999999) . '.' . $file_ext;
+            $filePath = public_path('images/');
+            $file->move($filePath, $fileName);
+        
+            // 새로운 파일 경로를 JSON 형식으로 저장
+            $filephoto = ['/storage/images/' . $fileName];
+            $item->photo = json_encode($filephoto);
+        }
+
+
+
+        // $image = [];
+        // // 원래 파일이름 앞에 시간을 합친다
+        // $fileName = time().$request->file('photo')->getClientOriginalName();
+        // // 파일을 images라는 폴더에 저장
+        // $path = $request->file('photo')->storeAs('images', $fileName, 'public');
+        // // 저장된 파일을 비어있는 image에 넣는다
+        // $image[] = '/storage/'.$path;
+        // // photo에 json형식으로 저장
+        // $item['phpto'] = json_encode($image);
+
+        $item->update([
+            'title' => $request->title,
+            'content' => $request->content,
+            'price' => $request->price,
+            'photo' => $item->photo,
+            'user_id' => auth()->id(),
+        ]);
+
+        return redirect()->route('secondhand.show', $id);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Secondhand $secondhand)
+    public function destroy($id)
     {
-        //
+        $item = Secondhand::findOrFail($id);
+
+        $item->delete();
+
+        return redirect()->route('secondhand.index');
     }
 }

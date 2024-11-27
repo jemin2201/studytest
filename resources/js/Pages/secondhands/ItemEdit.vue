@@ -5,7 +5,6 @@ import { useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
     item: Object,
-    user: Number,
 });
 
 const form = useForm({ // form은 객체 이름
@@ -13,15 +12,15 @@ const form = useForm({ // form은 객체 이름
     title: props.item.title,
     content: props.item.content,
     price: props.item.price,
-    photo: [],
+    photo: null,
 });
 
 const getFileName = (event) => {
-    form.photo = event.target.files[0]; // 선텍한 파일을 목록으로 만들어 주고 form.photo로 저장한다.
+    form.photo = event.target.files; // 선텍한 파일을 목록으로 만들어 주고 form.photo로 저장한다.
 };
 
 const submitForm = () => { // submitForm은 데이터를 전송하는 함수이름
-    form.post(route('secondhand.update')); // form.post는 useForm에서 제공하는 메서드
+    form.put(route('secondhand.update', props.item.id)); // form.post는 useForm에서 제공하는 메서드
 };
 
 </script>
@@ -34,13 +33,13 @@ const submitForm = () => { // submitForm은 데이터를 전송하는 함수이�
             </h2>
         </template>
 
-        <!-- 게시글 쓰기 -->
+        <!-- 매물 수정 -->
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="box">
                         <form action="" @submit.prevent="submitForm">
-                            <input type="file" name="photo" id="photo"  @change="getFileName"/> <br><br>
+                            <input type="file" name="photo" id="photo"  @change="getFileName"  /> <br><br>
                             <label for="" class="label1">
                                 제목
                             </label><br>

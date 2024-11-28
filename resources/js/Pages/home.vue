@@ -27,11 +27,6 @@ function handleImageError() {
     document.getElementById('docs-card-content')?.classList.add('!flex-row');
     document.getElementById('background')?.classList.add('!hidden');
 }
-
-const mapOption = {
-  center: { lat: 33.450701, lng: 126.570667 },
-  level: 8,
-};
 </script>
 
 <template>

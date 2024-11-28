@@ -101,7 +101,7 @@ class SecondhandController extends Controller
 
         if ($request->hasFile('photo')) {
             // 기존 파일 경로 가져오기
-            $oldFilePath = public_path(json_decode($item->photo)[0]);
+            $oldFilePath = public_path(json_decode($item->photo));
             
             // 기존 파일이 존재하면 삭제
             if (file_exists($oldFilePath)) {

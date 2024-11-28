@@ -1,9 +1,9 @@
 <template>
     <div class="controll">
-        <button @click="zoom(1)">
+        <button @click="zoom(-1)">
             <img src="/images/icon1.png" alt="" class="icon">
         </button>
-        <button @click="zoom(-1)">
+        <button @click="zoom(1)">
             <img src="/images/icon2.png" alt="" class="icon">
         </button>
     </div>
@@ -18,6 +18,10 @@ export default {
     options: {
       type: Object,
       required: true,
+      default: () => ({
+        center: { lat: 33.450701, lng: 126.570667 },
+        level: 8,
+      }),
     },
   },
   data() {
@@ -49,7 +53,8 @@ export default {
     zoom(delta) {
     //   console.log('[delta]', delta);
       const level = Math.max(3, this.options.level + delta)
-      this.options.level += level;
+      this.options.level = level;
+      this.mapInstance.setLevel(level);
     //   console.log(this.options.level);
     },
   },

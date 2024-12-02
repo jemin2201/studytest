@@ -1,8 +1,17 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import Kakaomap from '@/Components/Kakaomap.vue';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { reactive } from 'vue';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
+const mapOption = reactive({
+    center: {
+        lat: 35.1379222,
+        lng: 129.05562775
+    },
+    level: 8,
+});
 
 defineProps({
     canLogin: {
@@ -41,7 +50,7 @@ function handleImageError() {
         </Link>
     </div>
     <!-- 카카오 맵 -->
-    <Kakaomap class="kmap" :options="mapOption" />
+    <Kakaomap ref="kmap" class="kmap" :options="mapOption" />
 
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 환영합니다.
@@ -52,7 +61,7 @@ function handleImageError() {
         
 
         <!-- 이미지 슬라이드 -->
-        <div id="carouselExampleIndicators" class="carousel slide">
+        <!-- <div id="carouselExampleIndicators" class="carousel slide">
             <div class="carousel-indicators">
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -77,7 +86,7 @@ function handleImageError() {
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
-        </div>
+        </div> -->
 
         
 </template>

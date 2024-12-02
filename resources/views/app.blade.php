@@ -5,7 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
-        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a53297e3a5316bf24ec815d98b037575"></script>
+        <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=a53297e3a5316bf24ec815d98b037575"></script>
+        @vite(['resources/js/app.js'])
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

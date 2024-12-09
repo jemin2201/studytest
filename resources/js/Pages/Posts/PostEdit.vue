@@ -18,7 +18,11 @@ const submitForm = () => {
 };
 
 const deleteForm = () => {
-    form.delete(route('Posts.destroy', props.post.id));
+    const check = confirm("삭제 하시겠습니까?");
+    if(check) {
+
+        form.delete(route('Posts.destroy', props.post.id));
+    }
 };
 </script>
 

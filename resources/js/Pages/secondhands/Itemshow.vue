@@ -11,7 +11,11 @@ const props = defineProps({
 });
 
 const deleteitem = () => {
-    router.delete(route('secondhand.destroy', props.item.id));
+    const check = confirm("삭제 하시겠습니까?")
+    if(check) {
+
+        router.delete(route('secondhand.destroy', props.item.id));
+    }
 };
 </script>
 <template>

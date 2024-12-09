@@ -29,7 +29,7 @@ const submitForm = () => { // submitForm은 데이터를 전송하는 함수이�
             </h2>
         </template>
 
-        <!-- 게시글 쓰기 -->
+        <!-- 매무 올리기 -->
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">

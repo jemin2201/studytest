@@ -32,8 +32,9 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([ // 유효성 검사
-            'title' => 'required|unique:post|max:255',
+            'title' => 'required|max:255',
             'content' => 'required',
         ]);
         // 새로운 데이터 추가
@@ -83,10 +84,12 @@ class PostController extends Controller
             'content' => 'required|unique:post|string',
         ]);
 
+
         $post->update([  // 데이터베이스에 기존 정보를 수정하는 코드
             'title' => $request->title,
             'content' => $request->content,
         ]);
+
         // 리다이렉트 메소드를 사용했고 작업을 완료하면 PostShow/id로 넘어간다
         return  redirect()->route('PostShow', $id);
     }

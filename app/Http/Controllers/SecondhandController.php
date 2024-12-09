@@ -6,6 +6,8 @@ use App\Models\Secondhand;
 use App\models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
+
 
 class SecondhandController extends Controller
 {
@@ -34,7 +36,7 @@ class SecondhandController extends Controller
         $item = $request->all();
         
         $request->validate([ // 유효성 검사
-            'title' => 'required|unique:secondhands|max:255',
+            'title' => 'required|unique:secondhands|max:255', // required는 반드시 입력
             'content' => 'required',
             'price' => 'required',
             'photo' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048',
@@ -89,55 +91,41 @@ class SecondhandController extends Controller
     {
         $item = Secondhand::findOrfail($id);
 
-        $request->validate([ // 유효성 검사
-            'title' => 'required|max:255',
-            'content' => 'required',
-            'price' => 'required',
+
+        $request->validate([
+            'title' => 'required|max:255',  
+            'content' => 'required',        
+            'price' => 'required',         
             'photo' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $fileName = $item->photo;
-        $filepath = public_path('images/' . $fileName);
 
-        if ($request->hasFile('photo')) {
-            // 기존 파일 경로 가져오기
-            $oldFilePath = public_path(json_decode($item->photo));
-            
-            // 기존 파일이 존재하면 삭제
-            if (file_exists($oldFilePath)) {
-                unlink($oldFilePath);
+
+        $photoPath = $item->photo;
+
+        if($request->hasFile('photo')) {
+            // 기존 파일 삭제
+            $delphoto = json_decode($item->photo, true);
+            if($delphoto && is_array($delphoto)){
+                foreach ($delphoto as $photo) {
+                    $path = str_replace('/storage/', '', $photo);
+                    Storage::disk('public')->delete($path);
+                }
             }
-        
-            // 새로운 파일 처리
-            $file = $request->file('photo');
-            $file_ext = $file->getClientOriginalExtension();
-            $fileName = rand(123456, 999999) . '.' . $file_ext;
-            $filePath = public_path('images/');
-            $file->move($filePath, $fileName);
-        
-            // 새로운 파일 경로를 JSON 형식으로 저장
-            $filephoto = ['/storage/images/' . $fileName];
-            $item->photo = json_encode($filephoto);
+    
+            // 새 파일 저장
+            $image = [];
+            $fileName = time().$request->file('photo')->getClientOriginalName();
+            $path = $request->file('photo')->storeAs('images', $fileName, 'public');
+            $image[] = '/storage/'.$path;
+            $photoPath = json_encode($image);
         }
-
-
-
-        // $image = [];
-        // // 원래 파일이름 앞에 시간을 합친다
-        // $fileName = time().$request->file('photo')->getClientOriginalName();
-        // // 파일을 images라는 폴더에 저장
-        // $path = $request->file('photo')->storeAs('images', $fileName, 'public');
-        // // 저장된 파일을 비어있는 image에 넣는다
-        // $image[] = '/storage/'.$path;
-        // // photo에 json형식으로 저장
-        // $item['phpto'] = json_encode($image);
 
         $item->update([
             'title' => $request->title,
             'content' => $request->content,
             'price' => $request->price,
-            'photo' => $item->photo,
-            'user_id' => auth()->id(),
+            'photo' => $photoPath,
         ]);
 
         return redirect()->route('secondhand.show', $id);
@@ -150,6 +138,17 @@ class SecondhandController extends Controller
     {
         $item = Secondhand::findOrFail($id);
 
+        // photo를 json으로 바꿈
+        $delphoto = json_decode($item->photo, true);
+
+        if($delphoto && is_array($delphoto)){ // delphoto가 배열인지 확인
+            foreach ($delphoto as $photo) {
+
+                $path = str_replace('/storage/', '', $delphoto); // 파일 찾기
+                Storage::disk('public')->delete($path); // 파일을 삭제
+            }
+        }
+        
         $item->delete();
 
         return redirect()->route('secondhand.index');

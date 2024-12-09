@@ -16,13 +16,18 @@ const form = useForm({ // form은 객체 이름
 });
 
 const getFileName = (event) => {
-    form.photo = event.target.files; // 선텍한 파일을 목록으로 만들어 주고 form.photo로 저장한다.
+    form.photo = event.target.files[0]; // 선텍한 파일을 목록으로 만들어 주고 form.photo로 저장한다.
 };
 
-const submitForm = () => { // submitForm은 데이터를 전송하는 함수이름
-    form.put(route('secondhand.update', props.item.id)); // form.post는 useForm에서 제공하는 메서드
+const submitForm = () => {
+    form.transform(data => ({
+        ...data, // 모든 데이터를 가져옴
+        _method: 'PUT'  // PUT 메소드 명시적 지정
+    })).post(route('secondhand.update', props.item.id), {
+        forceFormData: true, //  파일을 보낼 수 있게함
+        preserveScroll: true, // 페이지 위치 유지
+    });
 };
-
 </script>
 
 <template>
